@@ -107,11 +107,13 @@ bool delete_student(int matNr){
 		printf("new %d\n",(db+i)->mNr);
 		if((db+i)->mNr==matNr){
 			printf("student found, i: %d\n",i);
-			printf("new database size: %d:\n",new_size);
 			indexToRemove=i+1;
 			memset((db+i)->lastname,0,20);
 			memset((db+i)->firstname,0,20);
 			(db+i)->mNr=0;
+			memset((db+i)->subject,0,30);
+			memset((db+i)->nationality,0,20);
+			
 			return 1;				
 		}
 	}	
