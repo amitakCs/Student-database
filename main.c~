@@ -17,7 +17,7 @@ int  getMatNr(){
 	int c;
 	//c must be a  white-space character to be a valid integer
 	while(scanf("%d",&matNr)!=1 || ((c=getchar())!=EOF && !isspace(c))){
-		printf("please enter a valid enrollement Nr: ");
+				printf("please enter a valid enrollement Nr: ");
 		clear_stdin(stdin);
 	}
 	return matNr;

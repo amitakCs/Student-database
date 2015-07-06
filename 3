@@ -12,15 +12,17 @@ int clear_stdin(FILE * in){
 	clearerr(in);
 }
 
-int  getMatNr(){
+int  getInput(){
 	int matNr;
 	int c;
 	//c must be a  white-space character to be a valid integer
 	while(scanf("%d",&matNr)!=1 || ((c=getchar())!=EOF && !isspace(c))){
-		printf("please enter a valid enrollement Nr: ");
+		printf("!!!this is not a valid enrollment nr!!!");
 		clear_stdin(stdin);
 	}
+	printf("%d\n",matN,matNr);
 	return matNr;
+
 }
 
 void remove_newline(char * str){
@@ -69,7 +71,9 @@ int main(int argc, char ** argv){
 				printf("enter the firstname:         ");
 				scanf("%s", firstname);
 				printf("enter the enrollment number: ");
-				matNr=getMatNr();
+				//scanf("%d",&matNr);
+				matNr=getInput();
+				getchar();
 				printf("enter the subject:           ");
 				fgets(subject,30,stdin);
 				remove_newline(subject);
