@@ -5,6 +5,7 @@ typedef int bool;
 #define true 1
 #define false 0
 struct student{
+	//a flag that shows if the current struct get data
 	bool statusFlag;
 	char lastname[20];
 	char firstname[20];
@@ -12,7 +13,6 @@ struct student{
 	char subject[30];
 	char nationality[20];
 };
-
 int createDb(int s);
 struct student getData(char * lastname, char * firstname, int matNr, char * courseOfStudy, char * nationality);
 void insert_student(struct student *  st);

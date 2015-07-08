@@ -3,6 +3,8 @@
 #include <string.h>
 #include "db_ops.h"
 
+extern  struct student * db;
+extern int insertCounter;
 int clear_stdin(FILE * in){
 	int ch;
 	clearerr(in);
@@ -12,12 +14,12 @@ int clear_stdin(FILE * in){
 	clearerr(in);
 }
 
-int  getMatNr(){
+int  getIdNr(){
 	int matNr;
 	int c;
 	//c must be a  white-space character to be a valid integer
 	while(scanf("%d",&matNr)!=1 || ((c=getchar())!=EOF && !isspace(c))){
-		printf("please enter a valid enrollement Nr: ");
+		printf("please enter a valid Id-Nr: ");
 		clear_stdin(stdin);
 	}
 	return matNr;
@@ -29,7 +31,7 @@ void remove_newline(char * str){
 		str[str_len-1]=0;
 	}
 }
-extern  struct student * db;
+
 int main(int argc, char ** argv){
 
 	char lastname[20];
@@ -62,41 +64,51 @@ int main(int argc, char ** argv){
 			printf(">>> ");
 		}while((!scanf("%d",&operation))&&clear_stdin(stdin));
 		switch(operation){
-			case 1:		
-				puts("---------------------------------");
-				printf("enter the lastname:          ");
-				scanf("%s", lastname); 
-				printf("enter the firstname:         ");
-				scanf("%s", firstname);
-				printf("enter the enrollment number: ");
-				matNr=getMatNr();
-				printf("enter the subject:           ");
-				fgets(subject,30,stdin);
-				remove_newline(subject);
-				printf("enter the nationality:       ");
-				scanf("%s",nationality);
-				struct student s=getData(lastname,firstname,matNr,subject,nationality);
-				insert_student(&s);
-				matNr=0;
-				puts("---------------------------------");
-				goto begin;
+			case 1:	
+				if(insertCounter<=SIZE){
+					puts("---------------------------------");
+					printf("enter the lastname:          ");
+					scanf("%s", lastname); 
+					printf("enter the firstname:         ");
+					scanf("%s", firstname);
+					printf("enter the enrollment number: ");
+					matNr=getIdNr();
+					printf("enter the subject:           ");
+					fgets(subject,30,stdin);
+					remove_newline(subject);
+					printf("enter the nationality:       ");
+					scanf("%s",nationality);
+					struct student s=getData(lastname,firstname,matNr,subject,nationality);
+					insert_student(&s);
+					matNr=0;
+					puts("---------------------------------");
+					goto begin;
+
+				}else if(insertCounter>SIZE){
+					puts("------------------------------------");
+					printf("!!!No Insertion is possible!!!\n");
+					puts("------------------------------------");
+					goto begin;
+
+				}
+		
 			case 2:
 				puts("-----------------------------------");
-				printf("enter the matriculation number of the Student to be delete:\n");
+				printf("enter the id of the Student to be delete:                ");
 				scanf("%d",&indexToRemove);
 				display_result(delete_student(indexToRemove),0);
 				puts("----------------------------------- ");
 				goto begin;
 			case 3:
 				puts("----------------------------------");
-				printf("enter the matriculation number of Student you are searching:\n");
+				printf("enter the id of Student you are searching:               ");
 				scanf("%d",&matNr);
 				search_student(matNr);
 				matNr=0;
 				goto begin;
 			case 4:
 				puts("----------------------------------");
-				printf("enter the matriculation of the student you want to update his data\n");
+				printf("enter the id of the student you want to update his data: ");
 				scanf("%d",&matNr);
 				update_student(matNr);
 				matNr=0;
