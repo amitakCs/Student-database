@@ -26,7 +26,6 @@ int   createDb(int s){
 struct student getData(char * lastname, char * firstname, int matNr, char * subject, char * nationality){
 	struct student st;
 	int i;
-	//develop a mechanism that allows you to avoid duplicate id
 	if(insertCounter<=size){
 		//get data
 		//0-byte marks the end of the string
@@ -46,10 +45,15 @@ void insert_student(struct student *  st){
 	printf("db_index:%d\n",db_index);
 	//if the struct has the status-flag 1, then it is not an empty struct
 	//insert that struct into db
-	if(st->statusFlag==1){	
-		//allocate the content of the pointer st to the pointer db
-		*(db+db_index)=*st;
-		insertCounter++;
+	if(!search_duplicate(st->mNr)){
+		if(st->statusFlag==1){	
+			//allocate the content of the pointer st to the pointer db
+			*(db+db_index)=*st;
+			insertCounter++;
+		}
+	}else{	
+		puts("--------------------------------------------");
+		printf("!!!duplicate id !!!\n");
 	}
 }
 
@@ -57,39 +61,71 @@ void update_student(int matNr){
 	char character;
 	char new_lastname[20];
 	char new_firstname[20];
-	int  new_MatNr;
+	int  new_id;
+	char new_subject[30];
+	char new_nationality[20];
 	int i;
 	for (i=0;i<size;i++){
 		if( (db+i)->mNr==matNr){
 			begin:
-			printf("please, choose the  information you want to update\n");
+			puts("---------------------------------------");
+			printf("please, choose one of these options\n");
 			printf("(a) lastname\n");
 			printf("(b) firstname\n");
-			printf("(c) Matriculation number\n");
-			printf("(d) exit\n");
+			printf("(c) id-Nr\n");
+			printf("(d) subject\n");
+			printf("(e) nationality\n");
+			printf("(g) exit\n");
+			printf(">>> ");
 			scanf(" %c",&character);
 			
 			switch(character){
 				case 'a':
-					printf("enter the lastname\n");
+					puts("------------------------------");
+					printf("enter the lastname:       ");
 					scanf("%s",new_lastname);
-					memcpy((db+i)->lastname,new_lastname,strlen(new_lastname));
+					memcpy((db+i)->lastname,new_lastname,strlen(new_lastname)+1);
+					puts("-----------------------------");
 					printf("update successfull\n");
-					break;
+					goto begin;
 				case 'b':
-					printf("enter the new firstname\n");
+					puts("------------------------------");
+					printf("enter the new firstname:  ");
 					scanf("%s",new_firstname);
 					printf("%s",new_firstname);
-					memcpy((db+i)->firstname, new_firstname,strlen(new_firstname));
+					memcpy((db+i)->firstname, new_firstname,strlen(new_firstname)+1);
+					puts("------------------------------");
 					printf("update successfull\n");
-					break;
+					goto begin;
 				case 'c':
-					printf("enter the new matriculation number\n");
-					scanf("%d",&new_MatNr);
-					(db+i)->mNr=new_MatNr;
+					puts("------------------------------");
+					printf("enter the new id-Nr:       ");
+					scanf("%d",&new_id);
+					getchar();
+					(db+i)->mNr=new_id;
+					puts("------------------------------");
 					printf("update successfull\n");
-					break;
+					goto begin;
 				case 'd':
+					puts("------------------------------");
+					clear_stdin(stdin);
+					printf("enter the new subject:    ");
+					fgets(new_subject,30,stdin);
+					remove_newline(new_subject);
+					memcpy((db+i)->subject,new_subject,strlen(new_subject)+1);
+					puts("-----------------------------");
+					printf("update successfull\n");
+					goto begin;
+					
+				case 'e':
+					puts("------------------------------");
+					printf("enter the new nationality:   ");
+					scanf("%s",new_nationality);
+					memcpy((db+i)->nationality,new_nationality,strlen(new_nationality)+1);
+					puts("------------------------------");
+					printf("update succesfull\n");
+					goto begin;
+				case 'g':
 					break;
 				default:
 					goto begin;
@@ -178,6 +214,7 @@ bool search_student(int matNr){
 			return 1;			
 		}
 	}
+	//student not found
 	return 0;
 }
 
@@ -189,10 +226,15 @@ void display_db(){
 		printf("%10s|%10s|%10d|%30s|%10s\n",			
 			(db+i)->lastname,(db+i)->firstname,(db+i)->mNr, (db+i)->subject, (db+i)->nationality);
 	}
-	/*
-	for (i=0;i<size;i++){
-		printf("statusFlag: %d\n",(db+i)->statusFlag);
-	}
-	*/
+	
 }
 
+bool search_duplicate(int id){
+	int i;
+	for(i=0;i<size;i++){
+		if(id==(db+i)->mNr){
+			return 1;
+		}
+	}
+	return 0;
+}

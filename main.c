@@ -36,7 +36,7 @@ int main(int argc, char ** argv){
 
 	char lastname[20];
 	char firstname[20];
-	int  matNr=0;
+	int  idNr=0;
 	char subject[30];
 	char nationality[20];
 	int  operation;
@@ -72,46 +72,57 @@ int main(int argc, char ** argv){
 					printf("enter the firstname:         ");
 					scanf("%s", firstname);
 					printf("enter the enrollment number: ");
-					matNr=getIdNr();
+					idNr=getIdNr();
 					printf("enter the subject:           ");
 					fgets(subject,30,stdin);
 					remove_newline(subject);
 					printf("enter the nationality:       ");
 					scanf("%s",nationality);
-					struct student s=getData(lastname,firstname,matNr,subject,nationality);
+					struct student s=getData(lastname,firstname,idNr,subject,nationality);
 					insert_student(&s);
-					matNr=0;
+					idNr=0;
 					puts("---------------------------------");
 					goto begin;
 
 				}else if(insertCounter>SIZE){
-					puts("------------------------------------");
+					puts("---------------------------------");
 					printf("!!!No Insertion is possible!!!\n");
-					puts("------------------------------------");
+					puts("---------------------------------");
 					goto begin;
 
 				}
 		
 			case 2:
-				puts("-----------------------------------");
-				printf("enter the id of the Student to be delete:                ");
+				puts("------------------------------------------");
+				printf("enter the id of the student you want to delete:    ");
 				scanf("%d",&indexToRemove);
 				display_result(delete_student(indexToRemove),0);
 				puts("----------------------------------- ");
 				goto begin;
 			case 3:
 				puts("----------------------------------");
-				printf("enter the id of Student you are searching:               ");
-				scanf("%d",&matNr);
-				search_student(matNr);
-				matNr=0;
+				printf("enter the id of Student you look for:               ");
+				scanf("%d",&idNr);
+				if(search_student(idNr)){	
+					printf("student found\n");
+
+				}else{
+					printf("student not found\n");
+				}
+				idNr=0;
+				puts("----------------------------------");
 				goto begin;
 			case 4:
 				puts("----------------------------------");
-				printf("enter the id of the student you want to update his data: ");
-				scanf("%d",&matNr);
-				update_student(matNr);
-				matNr=0;
+				printf("enter the id of the student for:                    ");
+				scanf("%d",&idNr);
+				if(search_student(idNr)){
+					update_student(idNr);
+				}else{
+					printf("Sorry, cannot find the student with id %d\n",idNr);
+				}
+				idNr=0;
+				puts("----------------------------------");
 				goto begin;
 				
 			case 5:
