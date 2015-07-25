@@ -3,8 +3,8 @@
 #include <string.h>
 #include "db_ops.h"
 
-extern struct student * db;
-extern insertCounter;
+struct student * db;
+int insertCounter;
 void parseLine(char * str,char * tokens [], int max_tokens){
     	char del[2]=",";
 	char * token;
@@ -24,7 +24,17 @@ void remove_semicolon(char * str){
 		str[len-2]=0;
 	}
 }
+
+bool  check_db(struct student * db){
+	int i;
+	for(i=0;i<SIZE;i++){
+		if((db+i)->statusFlag==0)
+			return 0;
+	}	
+	return 1;
+}
 void writeData(){
+	//FILE is an object to control the stream
 	FILE * fpw;
 	fpw=fopen("database.txt","w");
 	if(fpw==NULL){

@@ -3,8 +3,8 @@
 #include <string.h>
 #include "db_ops.h"
 
-struct student * db;
-int insertCounter=1;
+extern struct student * db;
+extern int insertCounter=1;
 int size=0;
 void init_struct(struct student * st){
 	st->statusFlag=0;
@@ -52,7 +52,7 @@ void insert_student(struct student *  st){
 			insertCounter++;
 		}
 	}else{	
-		puts("--------------------------------------------");
+		puts("-------------------------------------# Student-Database #-------------------------------------");
 		printf("!!!duplicate id !!!\n");
 	}
 }
@@ -68,7 +68,7 @@ void update_student(int matNr){
 	for (i=0;i<size;i++){
 		if( (db+i)->mNr==matNr){
 			begin:
-			puts("---------------------------------------");
+			puts("-------------------------------------# Student-Database #-------------------------------------");
 			printf("please, choose one of these options\n");
 			printf("(a) lastname\n");
 			printf("(b) firstname\n");
@@ -81,48 +81,48 @@ void update_student(int matNr){
 			
 			switch(character){
 				case 'a':
-					puts("------------------------------");
+					puts("-------------------------------------# Student-Database #-------------------------------------");
 					printf("enter the lastname:       ");
 					scanf("%s",new_lastname);
 					memcpy((db+i)->lastname,new_lastname,strlen(new_lastname)+1);
-					puts("-----------------------------");
+					puts("------------------------# Student-Database #------------------------");
 					printf("update successfull\n");
 					goto begin;
 				case 'b':
-					puts("------------------------------");
+					puts("-------------------------------------# Student-Database #-------------------------------------");
 					printf("enter the new firstname:  ");
 					scanf("%s",new_firstname);
 					printf("%s",new_firstname);
 					memcpy((db+i)->firstname, new_firstname,strlen(new_firstname)+1);
-					puts("------------------------------");
+					puts("-------------------------------------# Student-Database #-------------------------------------");
 					printf("update successfull\n");
 					goto begin;
 				case 'c':
-					puts("------------------------------");
+					puts("-------------------------------------# Student-Database #-------------------------------------");
 					printf("enter the new id-Nr:       ");
 					scanf("%d",&new_id);
 					getchar();
 					(db+i)->mNr=new_id;
-					puts("------------------------------");
+					puts("-------------------------------------# Student-Database #-------------------------------------");
 					printf("update successfull\n");
 					goto begin;
 				case 'd':
-					puts("------------------------------");
+					puts("-------------------------------------# Student-Database #-------------------------------------");
 					clear_stdin(stdin);
 					printf("enter the new subject:    ");
 					fgets(new_subject,30,stdin);
 					remove_newline(new_subject);
 					memcpy((db+i)->subject,new_subject,strlen(new_subject)+1);
-					puts("-----------------------------");
+					puts("-------------------------------------# Student-Database #-------------------------------------");
 					printf("update successfull\n");
 					goto begin;
 					
 				case 'e':
-					puts("------------------------------");
+					puts("-------------------------------------# Student-Database #-------------------------------------");
 					printf("enter the new nationality:   ");
 					scanf("%s",new_nationality);
 					memcpy((db+i)->nationality,new_nationality,strlen(new_nationality)+1);
-					puts("------------------------------");
+					puts("-------------------------------------# Student-Database #-------------------------------------");
 					printf("update succesfull\n");
 					goto begin;
 				case 'g':
@@ -219,6 +219,7 @@ bool search_student(int matNr){
 }
 
 void display_db(){
+ 	puts("-------------------------------------# Student-Database #-------------------------------------");
 	printf("%10s|%10s|%10s|%30s|%10s\n","lastname","firstname","enroll. nr","subject","nationality");
 	printf("======================================================================================\n");
 	int i;

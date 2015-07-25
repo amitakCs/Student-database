@@ -47,9 +47,9 @@ int main(int argc, char ** argv){
 	memset(subject,0,20*sizeof(char));
 	memset(nationality,0,20*sizeof(char));
 	createDb(SIZE);
-	printf("===================================\n");
-	printf("   WELCOME TO STUDENT DATABASE     \n");
-	printf("===================================\n");
+	printf("======================================================================================================);\n");
+	printf("                                        # WELCOME TO STUDENT DATABASE #    \n");
+	printf("======================================================================================================\n");
 	printf("\n");
 	begin:		
 		operation=0;
@@ -66,7 +66,7 @@ int main(int argc, char ** argv){
 		switch(operation){
 			case 1:	
 				if(insertCounter<=SIZE){
-					puts("---------------------------------");
+					puts("-------------------------------------# Student-Database #-------------------------------------");
 					printf("enter the lastname:          ");
 					scanf("%s", lastname); 
 					printf("enter the firstname:         ");
@@ -81,26 +81,25 @@ int main(int argc, char ** argv){
 					struct student s=getData(lastname,firstname,idNr,subject,nationality);
 					insert_student(&s);
 					idNr=0;
-					puts("---------------------------------");
 					goto begin;
 
 				}else if(insertCounter>SIZE){
-					puts("---------------------------------");
-					printf("!!!No Insertion is possible!!!\n");
-					puts("---------------------------------");
+					puts("-------------------------------------# Student-Database #-------------------------------------");
+					printf("                            !!!No Insertion is possible!!!\n");
+					puts("-------------------------------------# Student-Database #-------------------------------------");
 					goto begin;
 
 				}
 		
 			case 2:
-				puts("------------------------------------------");
+				puts("-------------------------------------# Student-Database #-------------------------------------");
 				printf("enter the id of the student you want to delete:    ");
 				scanf("%d",&indexToRemove);
 				display_result(delete_student(indexToRemove),0);
-				puts("----------------------------------- ");
+				//puts("-------------------------------------# Student-Database #-------------------------------------");
 				goto begin;
 			case 3:
-				puts("----------------------------------");
+				puts("-------------------------------------# Student-Database #-------------------------------------");
 				printf("enter the id of Student you look for:               ");
 				scanf("%d",&idNr);
 				if(search_student(idNr)){	
@@ -110,10 +109,10 @@ int main(int argc, char ** argv){
 					printf("student not found\n");
 				}
 				idNr=0;
-				puts("----------------------------------");
+				//puts("-------------------------------------# Student-Database #-------------------------------------");
 				goto begin;
 			case 4:
-				puts("----------------------------------");
+				puts("-------------------------------------# Student-Database #-------------------------------------");
 				printf("enter the id of the student for:                    ");
 				scanf("%d",&idNr);
 				if(search_student(idNr)){
@@ -122,29 +121,28 @@ int main(int argc, char ** argv){
 					printf("Sorry, cannot find the student with id %d\n",idNr);
 				}
 				idNr=0;
-				puts("----------------------------------");
+				//puts("-------------------------------------# Student-Database #-------------------------------------");
 				goto begin;
 				
 			case 5:
-				puts("----------------------------------");
+				puts("-------------------------------------# Student-Database #-------------------------------------");
 				display_db();
-				puts("----------------------------------");
 				goto begin;
 			
 			case 6:
-				puts("----------------------------------");
+				puts("-------------------------------------# Student-Database #-------------------------------------");
 				writeData();
 				//free dynamic memory
 				free(db);
 				db=0;
 				printf("The database closed  successfully\n");
-				puts("----------------------------------");
+				puts("-------------------------------------# Student-Database #-------------------------------------");
 				exit(0);
 				goto begin;
 			default:
-				puts("----------------------------------");
+				puts("-------------------------------------# Student-Database #-------------------------------------");
 				printf("#please enter a number between 1 and 6#\n");
-				puts("----------------------------------");
+				//puts("-------------------------------------# Student-Database #-------------------------------------");
 				goto begin;
 
 		}
