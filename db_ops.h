@@ -1,9 +1,13 @@
 #ifndef DB_OPS
 #define DB_OPS
-#define SIZE 3
+#define SIZE 100
+
 typedef int bool;
 #define true 1
 #define false 0
+
+extern int  insertCounter;
+
 struct student{
 	//a flag that shows if the current struct get data
 	bool statusFlag;
@@ -13,15 +17,18 @@ struct student{
 	char subject[30];
 	char nationality[20];
 };
-int createDb(int s);
+
+extern struct student * db;
+
+void createDb();
+void  createEmptyDb(int s);
 struct student getData(char * lastname, char * firstname, int matNr, char * courseOfStudy, char * nationality);
-void insert_student(struct student *  st);
+void insertStudent_0(struct student *  st);
+void insertStudent_1(struct student * st);
 void update_student(int matNr);
 bool delete_student(int matNr);
 void display_result(bool  res, bool operation);
 bool search_student(int matNr);
 void display_db();
-void writeData();
-void readData();
-void print();
+
 #endif

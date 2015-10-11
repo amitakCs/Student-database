@@ -3,35 +3,6 @@
 #include <string.h>
 #include "db_ops.h"
 
-extern  struct student * db;
-extern int insertCounter;
-int clear_stdin(FILE * in){
-	int ch;
-	clearerr(in);
-	do{
-		ch=getc(in);
-	}while(ch!='\n' && ch!=EOF);
-	clearerr(in);
-}
-
-int  getIdNr(){
-	int matNr;
-	int c;
-	//c must be a  white-space character to be a valid integer
-	while(scanf("%d",&matNr)!=1 || ((c=getchar())!=EOF && !isspace(c))){
-		printf("please enter a valid Id-Nr: ");
-		clear_stdin(stdin);
-	}
-	return matNr;
-}
-
-void remove_newline(char * str){
-	size_t str_len=strlen(str);
-	if(str_len && str[str_len-1]=='\n'){
-		str[str_len-1]=0;
-	}
-}
-
 int main(int argc, char ** argv){
 
 	char lastname[20];
@@ -41,16 +12,19 @@ int main(int argc, char ** argv){
 	char nationality[20];
 	int  operation;
 	int  indexToRemove;
+
 	//initialize the arrays
 	memset(lastname,0,20*sizeof(char));
 	memset(firstname,0,20*sizeof(char));
 	memset(subject,0,20*sizeof(char));
 	memset(nationality,0,20*sizeof(char));
 	createDb(SIZE);
+
 	printf("======================================================================================================);\n");
 	printf("                                        # WELCOME TO STUDENT DATABASE #    \n");
 	printf("======================================================================================================\n");
 	printf("\n");
+
 	begin:		
 		operation=0;
 		do{
@@ -63,6 +37,7 @@ int main(int argc, char ** argv){
 			printf("   (6) exit\n");
 			printf(">>> ");
 		}while((!scanf("%d",&operation))&&clear_stdin(stdin));
+
 		switch(operation){
 			case 1:	
 				if(insertCounter<=SIZE){
@@ -79,7 +54,7 @@ int main(int argc, char ** argv){
 					printf("enter the nationality:       ");
 					scanf("%s",nationality);
 					struct student s=getData(lastname,firstname,idNr,subject,nationality);
-					insert_student(&s);
+					insertStudent_1(&s);
 					idNr=0;
 					goto begin;
 
