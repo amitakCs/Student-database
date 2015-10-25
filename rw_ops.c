@@ -18,8 +18,10 @@ void writeData(){
 	//if there is at least one entry in db , then this entry will be written in the file
 	if(!checkIfDataAvailable(db)){
 		for(i=0;i<SIZE;i++){
-			fprintf(fpw,"%s, %s, %d, %s , %s;\n",	
-				(db+i)->lastname,(db+i)->firstname,(db+i)->mNr, (db+i)->subject, (db+i)->nationality);
+			if((db+i)->statusFlag == 1){
+				fprintf(fpw,"%s, %s, %d, %s , %s;\n",	
+					(db+i)->lastname,(db+i)->firstname,(db+i)->mNr, (db+i)->subject, (db+i)->nationality);
+			}
 		}
 	}
 	fclose(fpw);

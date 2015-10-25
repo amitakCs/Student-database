@@ -20,7 +20,7 @@ int main(int argc, char ** argv){
 	memset(nationality,0,20*sizeof(char));
 	createDb(SIZE);
 
-	printf("======================================================================================================);\n");
+	printf("======================================================================================================\n");
 	printf("                                        # WELCOME TO STUDENT DATABASE #    \n");
 	printf("======================================================================================================\n");
 	printf("\n");
@@ -111,13 +111,11 @@ int main(int argc, char ** argv){
 				free(db);
 				db=0;
 				printf("The database closed  successfully\n");
-				puts("-------------------------------------# Student-Database #-------------------------------------");
 				exit(0);
 				goto begin;
 			default:
 				puts("-------------------------------------# Student-Database #-------------------------------------");
 				printf("#please enter a number between 1 and 6#\n");
-				//puts("-------------------------------------# Student-Database #-------------------------------------");
 				goto begin;
 
 		}

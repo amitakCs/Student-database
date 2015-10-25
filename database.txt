@@ -1,0 +1,6 @@
+Taktak,      Amine, 3444033,      Systems Engineering      ,      tunisian;
+Jarmoud,     Sami, 3944594,     Computer Science     ,     tunisian;
+Arfaoui,     Amine, 3003993,     MBA Finance     ,     canadian;
+Hammami, Amine, 3993930, Electrical Engineering , tunisian;
+Masmoudi, Ahmed, 3939331, Mechanical Engineering , tunisian;
+Ghabchouk, Skender, 35044345, Electrical Engineering , tunisian;

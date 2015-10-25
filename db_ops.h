@@ -8,6 +8,7 @@ typedef int bool;
 
 extern int  insertCounter;
 
+//declaration of the struct
 struct student{
 	//a flag that shows if the current struct get data
 	bool statusFlag;
@@ -22,7 +23,7 @@ extern struct student * db;
 
 void createDb();
 void  createEmptyDb(int s);
-struct student getData(char * lastname, char * firstname, int matNr, char * courseOfStudy, char * nationality);
+struct student getData(char * lastname, char * firstname, int matNr, char * subject, char * nationality);
 void insertStudent_0(struct student *  st);
 void insertStudent_1(struct student * st);
 void update_student(int matNr);

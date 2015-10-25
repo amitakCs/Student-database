@@ -3,7 +3,10 @@
 #include <string.h>
 #include "db_ops.h"
 #include "help_functions.h"
+
 struct student * db=NULL;
+
+//init struct
 void init_struct(struct student * st){
 	st->statusFlag=0;
 }
@@ -39,7 +42,7 @@ void  createEmptyDb(int s){
 
 struct student getData(char * lastname, char * firstname, int matNr, char * subject, char * nationality){
 	struct student st;
-	int i;
+	
 	if(insertCounter<=SIZE){
 		//get data
 		//0-byte marks the end of the string
@@ -52,6 +55,7 @@ struct student getData(char * lastname, char * firstname, int matNr, char * subj
 		st.statusFlag=1;
 		return st;
 	}
+	return st;
 }
 
 //insert student while reading from an available database
@@ -247,9 +251,13 @@ void display_db(){
 	printf("======================================================================================\n");
 	int i;
 	for(i=0;i<SIZE;i++){
-		printf("%10s|%10s|%10d|%30s|%10s\n",			
-			(db+i)->lastname,(db+i)->firstname,(db+i)->mNr, (db+i)->subject, (db+i)->nationality);
+		
+		if((db+i)->statusFlag == 1){
+			printf("%10s|%10s|%10d|%30s|%10s\n",			
+				(db+i)->lastname,(db+i)->firstname,(db+i)->mNr, (db+i)->subject, (db+i)->nationality);
+		}	
 	}
+	printf("\n");
 	
 }
 
