@@ -2,13 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 #include "db_ops.h"
+#include "help_functions.h"
+#include "rw_ops.h"
+
+insertCnt = 0;
 
 int main(int argc, char ** argv){
 
 	char lastname[20];
 	char firstname[20];
-	int  idNr=0;
-	char subject[30];
+	int  phone_nr = 0;
+	char university[30];
 	char nationality[20];
 	int  operation;
 	int  indexToRemove;
@@ -16,7 +20,7 @@ int main(int argc, char ** argv){
 	//initialize the arrays
 	memset(lastname,0,20*sizeof(char));
 	memset(firstname,0,20*sizeof(char));
-	memset(subject,0,20*sizeof(char));
+	memset(university,0,20*sizeof(char));
 	memset(nationality,0,20*sizeof(char));
 	createDb(SIZE);
 
@@ -26,8 +30,9 @@ int main(int argc, char ** argv){
 	printf("\n");
 
 	begin:		
-		operation=0;
-		do{
+		operation = 0;
+		do { 
+    			printf("\n");
 			printf("please choose one of these operations:\n");
 			printf("   (1) enter a new student\n");
 			printf("   (2) delete a student\n");
@@ -36,66 +41,83 @@ int main(int argc, char ** argv){
 			printf("   (5) show the current database\n");
 			printf("   (6) exit\n");
 			printf(">>> ");
-		}while((!scanf("%d",&operation))&&clear_stdin(stdin));
 
-		switch(operation){
+		} while ((!scanf("%d",&operation)) && clear_stdin(stdin));
+
+		switch (operation) {
+
 			case 1:	
-				if(insertCounter<=SIZE){
+				if (insertCnt <= SIZE) {
+
 					puts("-------------------------------------# Student-Database #-------------------------------------");
-					printf("enter the lastname:          ");
+					printf("enter the lastname    : ");
 					scanf("%s", lastname); 
-					printf("enter the firstname:         ");
+					printf("enter the firstname   : ");
 					scanf("%s", firstname);
-					printf("enter the enrollment number: ");
-					idNr=getIdNr();
-					printf("enter the subject:           ");
-					fgets(subject,30,stdin);
-					remove_newline(subject);
-					printf("enter the nationality:       ");
+					printf("enter the phone number: ");
+					phone_nr=getPhoneNr();
+					printf("enter the university  : ");
+					fgets(university,30,stdin);
+					remove_newline(university);
+					printf("enter the nationality : ");
 					scanf("%s",nationality);
-					struct student s=getData(lastname,firstname,idNr,subject,nationality);
+					struct student s=getData(lastname, firstname, phone_nr, university, nationality);
 					insertStudent_1(&s);
-					idNr=0;
+					phone_nr=0;
 					goto begin;
 
-				}else if(insertCounter>SIZE){
+				} else if (insertCnt > SIZE) {
+
 					puts("-------------------------------------# Student-Database #-------------------------------------");
-					printf("                            !!!No Insertion is possible!!!\n");
+					printf("                            !!!The database is full. No Insertion is possible!!!\n");
 					puts("-------------------------------------# Student-Database #-------------------------------------");
 					goto begin;
 
 				}
 		
 			case 2:
+
 				puts("-------------------------------------# Student-Database #-------------------------------------");
-				printf("enter the id of the student you want to delete:    ");
+				printf("enter the phone number  of the student you want to delete:    ");
 				scanf("%d",&indexToRemove);
 				display_result(delete_student(indexToRemove),0);
 				//puts("-------------------------------------# Student-Database #-------------------------------------");
 				goto begin;
+
 			case 3:
+
 				puts("-------------------------------------# Student-Database #-------------------------------------");
-				printf("enter the id of Student you look for:               ");
-				scanf("%d",&idNr);
-				if(search_student(idNr)){	
+				printf("enter the phone number of Student you look for:               ");
+				scanf("%d",&phone_nr);
+
+				if (search_student(phone_nr)) {	
+
 					printf("student found\n");
 
-				}else{
+				} else {
+
 					printf("student not found\n");
+
 				}
-				idNr=0;
+
+				phone_nr = 0;
 				//puts("-------------------------------------# Student-Database #-------------------------------------");
 				goto begin;
+
 			case 4:
 				puts("-------------------------------------# Student-Database #-------------------------------------");
-				printf("enter the id of the student for:                    ");
-				scanf("%d",&idNr);
-				if(search_student(idNr)){
-					update_student(idNr);
-				}else{
-					printf("Sorry, cannot find the student with id %d\n",idNr);
+				printf("enter the phone number  of the student for:                    ");
+				scanf("%d",&phone_nr);
+
+				if (search_student(phone_nr)) {
+
+					update_student(phone_nr);
+
+				} else {
+
+					printf("Sorry, cannot find the student with the entered phone number  %d\n", phone_nr);
 				}
-				idNr=0;
+				phone_nr=0;
 				//puts("-------------------------------------# Student-Database #-------------------------------------");
 				goto begin;
 				
