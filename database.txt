@@ -1,5 +1,0 @@
-Taktak,   Amine, 17867197,   Goethe Uni   ,   tn;
-Hammami,   Amine, 176458488, TUM ,   tn;
-Ghabchouk,   Skender, 177345433,   uni-Stuttgart   ,   tn;
-Jarmoud,   Sami, 17567667,   THM   ,   tn;
-Graja,  sami, 1788778,  TUD  ,  tn;
