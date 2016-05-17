@@ -11,7 +11,7 @@ typedef int bool;
 extern int  insertCnt;
 
 //declaration of the struct
-struct student{
+struct student {
 
 	//a flag that shows if the current struct get data
 	bool statusFlag;

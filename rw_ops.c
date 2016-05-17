@@ -5,8 +5,6 @@
 #include "db_ops.h"
 #include "help_functions.h"
 
-int insertCounter = 1;
-
 void writeData(){
 
 	//FILE is an object to control the stream
@@ -20,7 +18,7 @@ void writeData(){
 
 	int i;
 	//if there is at least one entry in db , then this entry will be written in the file
-	if(!checkIfDataAvailable(db)){
+	if (!checkIfDataAvailable(db)) {
 
 		for(i=0;i<SIZE;i++){
 			if((db+i)->statusFlag == 1){
@@ -61,4 +59,3 @@ void  readData() {
 
 	fclose(fpr);
 }
-

@@ -6,22 +6,23 @@
 #include "rw_ops.h"
 
 struct student * db = NULL;
+int insertCnt = 0;
 
 //init struct
 void init_struct(struct student * st){
 	st->statusFlag=0;
 }
 
-void  createDb(int s){
+void  createDb(int size){
 	
 
 	if(checkFileIsEmpty() == 1){
 
-		createEmptyDb(s);
+		createEmptyDb(size);
 
 	}else if(checkFileIsEmpty() == 0){
 
-		db = (struct student *) calloc(SIZE,sizeof(struct student));
+		db = (struct student *) calloc(size,sizeof(struct student));
 		readData();	
 	
 	}
@@ -52,7 +53,7 @@ struct student getData(char * lastname, char * firstname, int phoneNr, char * un
 	struct student st;
 	
 	if(insertCnt <= SIZE){
-
+	
 		//0-byte marks the end of the string
 		memcpy(st.lastname,lastname,strlen(lastname)+1);
 		memcpy(st.firstname,firstname,strlen(firstname)+1);
@@ -71,8 +72,8 @@ struct student getData(char * lastname, char * firstname, int phoneNr, char * un
 //insert student while reading from an available database
 void insertStudent_0(struct student * st){
 
-	 *(db+(insertCnt-1)) =  *st;
-	(db+(insertCnt-1))->statusFlag=1;
+	*(db+insertCnt) =  *st;
+	(db+insertCnt)->statusFlag = 1;
  	insertCnt++;
 }
 
@@ -84,9 +85,9 @@ void insertStudent_1(struct student *  st){
 	if(!search_duplicate(st->phoneNr)){
 
 		if(st->statusFlag==1){
-	
+			
 			//allocate the content of the pointer st to the pointer db
-			*(db+(insertCnt-1))=*st;
+			*(db+(insertCnt))=*st;
 			insertCnt++;
 		}
 
@@ -111,7 +112,7 @@ void update_student(int phoneNr){
 	int i;
 	for (i = 0; i<SIZE ;i++){
 
-		if( (db+i)->phoneNr == phoneNr){
+		if ((db+i)->phoneNr == phoneNr) {
 			begin:
 			puts("-------------------------------------# Student-Database #-------------------------------------");
 			printf("please, choose one of these options\n");
@@ -310,5 +311,6 @@ void display_db(){
 	printf("\n");
 	
 }
+
 
 

@@ -5,8 +5,6 @@
 #include "help_functions.h"
 #include "rw_ops.h"
 
-insertCnt = 0;
-
 int main(int argc, char ** argv){
 
 	char lastname[20];
@@ -87,7 +85,7 @@ int main(int argc, char ** argv){
 			case 3:
 
 				puts("-------------------------------------# Student-Database #-------------------------------------");
-				printf("enter the phone number of Student you look for:               ");
+				printf("enter the phone number of the student:                           ");
 				scanf("%d",&phone_nr);
 
 				if (search_student(phone_nr)) {	
